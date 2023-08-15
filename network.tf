@@ -25,20 +25,16 @@ resource "azurerm_network_security_group" "nsg" {
   location            = var.location
   resource_group_name = azurerm_resource_group.resource_group_vnet.name
 
-  dynamic "security_rule" {
-    for_each = var.allowed_ip_addresses
-
-    content {
-      name                       = "SSH_${security_rule.key}"
-      priority                   = 100 + security_rule.key
-      direction                  = "Inbound"
-      access                     = "Allow"
-      protocol                   = "Tcp"
-      source_port_range          = "22"
-      destination_port_range     = "22"
-      source_address_prefix      = cidrsubnet(security_rule.value)  # Converter IP para formato CIDR
-      destination_address_prefix = "*"
-    }
+  security_rule {
+    name                       = "SSH"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "22"
+    destination_port_range     = "22"
+    source_address_prefix      = "177.134.254.208"
+    destination_address_prefix = "*"
   }
 
   tags = local.common_tags

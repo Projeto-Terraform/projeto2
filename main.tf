@@ -10,8 +10,8 @@ terraform {
 
   backend "azurerm" {
     # Esses 3 valores dependem da criação do storage account / estou colocando apenas valores possíveis
-    resource_group_name  = "projeto-terraform-group"
-    storage_account_name = "projeto-terraform-storage"
+    resource_group_name  = "projeto-terraform-resource-group"
+    storage_account_name = "storageaccounttf2112"
     container_name       = "projeto-terraform-container"
     key                  = "azure-vnet/terraform.tfstate"
   }

@@ -15,7 +15,15 @@ terraform {
     container_name       = "projeto-terraform-container"
     key                  = "azure-vnet/terraform.tfstate"
   }
+
+  backend "s3" {
+    bucket = "projeto-terraform"
+    key    = "aws-vpc/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
+
+
 
 provider "azurerm" {
   features {}
@@ -23,4 +31,26 @@ provider "azurerm" {
   client_secret   = var.ARM_CLIENT_SECRET
   subscription_id = var.ARM_SUBSCRIPTION_ID
   tenant_id       = var.ARM_TENANT_ID
+}
+
+provider "aws" {
+  shared_credentials_file = "˜/.aws/credentials"
+  region = "us-east-1"
+
+  default_tags {
+    tags = {
+      owner      = "projeto-terraform"
+      managed-by = "terraform"
+    }
+
+  }
+}
+
+data "terraform_remote_state" "vpc" {
+  backend = "s3"
+  config = {
+    bucket = "projeto-terraform"
+    key    = "aws-vpc/terraform.tfstate"
+    region = "us-east-1"
+  }
 }

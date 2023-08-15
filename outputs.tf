@@ -13,3 +13,16 @@ output "security_group_id" {
 output "subnet_id" {
   value = azurerm_subnet.subnet.id
 }
+
+output "subnet_id" {
+
+  value = aws_subnet.subnet.id
+
+}
+
+
+output "security_group" {
+
+  value = aws_security_group.security_group.id
+
+}

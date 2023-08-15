@@ -27,3 +27,4 @@ variable "ARM_SUBSCRIPTION_ID" {
 variable "ARM_TENANT_ID" {
   description = "Azure Tenant ID"
 }
+

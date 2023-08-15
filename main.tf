@@ -41,3 +41,25 @@ data "terraform_remote_state" "vnet" {
     key                  = "azure-vnet/terraform.tfstate"
   }
 }
+
+provider "aws" {
+  shared_credentials_file = "˜/.aws/credentials"
+  region = "us-east-1"
+
+  default_tags {
+    tags = {
+      owner      = "projeto-terraform"
+      managed-by = "terraform"
+    }
+
+  }
+}
+
+data "terraform_remote_state" "vpc" {
+  backend = "s3"
+  config = {
+    bucket = "projeto-terraform"
+    key    = "aws-vpc/terraform.tfstate"
+    region = "us-east-1"
+  }
+}

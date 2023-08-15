@@ -9,7 +9,6 @@ terraform {
   }
 
   backend "azurerm" {
-    # Esses 3 valores dependem da criação do storage account / estou colocando apenas valores possíveis
     resource_group_name  = "projeto-terraform-resource-group"
     storage_account_name = "storageaccounttf2112"
     container_name       = "projeto-terraform-container"
@@ -33,24 +32,12 @@ provider "azurerm" {
   tenant_id       = var.ARM_TENANT_ID
 }
 
-provider "aws" {
-  shared_credentials_file = "˜/.aws/credentials"
-  region = "us-east-1"
-
-  default_tags {
-    tags = {
-      owner      = "projeto-terraform"
-      managed-by = "terraform"
-    }
-
-  }
-}
-
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
+data "terraform_remote_state" "vnet" {
+  backend = "azurerm"
   config = {
-    bucket = "projeto-terraform"
-    key    = "aws-vpc/terraform.tfstate"
-    region = "us-east-1"
+    resource_group_name  = "projeto-terraform-resource-group"
+    storage_account_name = "storageaccounttf2112"
+    container_name       = "projeto-terraform-container"
+    key                  = "azure-vnet/terraform.tfstate"
   }
 }

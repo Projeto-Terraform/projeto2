@@ -56,7 +56,7 @@ resource "aws_vpc" "virtual_private_network" {
 }
 
 resource "aws_subnet" "subnet" {
-  vpc_id     = aws_vpc.virtualprivatenetwork.id
+  vpc_id     = aws_vpc.virtual_private_network.id
   cidr_block = "10.0.1.0/24"
 
   tags = {
@@ -65,7 +65,7 @@ resource "aws_subnet" "subnet" {
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.virtualprivatenetwork.id
+  vpc_id = aws_vpc.virtual_private_network.id
 
   tags = {
     Name = "gw-projeto-terraform"
@@ -73,7 +73,7 @@ resource "aws_internet_gateway" "gw" {
 }
 
 resource "aws_route_table" "route_table" {
-  vpc_id = aws_vpc.virtualprivatenetwork.id
+  vpc_id = aws_vpc.virtual_private_network.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -93,13 +93,13 @@ resource "aws_route_table_association" "rta" {
 resource "aws_security_group" "security_group" {
   name        = "security-group-terraform"
   description = "Allow TLS inbound traffic"
-  vpc_id      = aws_vpc.virtualprivatenetwork.id
+  vpc_id      = aws_vpc.virtual_private_network.id
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["177.134.254.208"]
   }
 
   egress {

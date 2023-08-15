@@ -16,7 +16,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "projeto-terraform"
+    bucket = "projeto-terraform2112"
     key    = "aws-vpc/terraform.tfstate"
     region = "us-east-1"
   }
@@ -43,7 +43,6 @@ data "terraform_remote_state" "vnet" {
 }
 
 provider "aws" {
-  shared_credentials_file = "˜/.aws/credentials"
   region = "us-east-1"
 
   default_tags {
@@ -58,7 +57,7 @@ provider "aws" {
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
-    bucket = "projeto-terraform"
+    bucket = "projeto-terraform2112"
     key    = "aws-vpc/terraform.tfstate"
     region = "us-east-1"
   }

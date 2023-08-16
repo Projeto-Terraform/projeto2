@@ -19,13 +19,3 @@ terraform {
 provider "azurerm" {
   features {}
 }
-
-data "terraform_remote_state" "vnet" {
-  backend = "azurerm"
-  config = {
-    resource_group_name  = "projeto-terraform-resource-group"
-    storage_account_name = "storageaccounttf2112"
-    container_name       = "projeto-terraform-container"
-    key                  = "azure-vnet/terraform.tfstate"
-  }
-}

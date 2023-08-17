@@ -30,9 +30,9 @@ resource "azurerm_network_security_group" "nsg" {
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
-    source_port_range          = "22"
+    source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "177.134.254.208"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
 
